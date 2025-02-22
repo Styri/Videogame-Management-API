@@ -2,8 +2,8 @@
 
 ## Overview
 
-A Laravel-based backend API for managing a video game collection. Users can register, authenticate,
-and perform CRUD operations on their game library with role-based access controls.
+"A Laravel-based API for managing video game collections with user authentication,
+role-based access control, and a review system."
 
 ## Key Features
 
@@ -20,13 +20,60 @@ and perform CRUD operations on their game library with role-based access control
 -   **Database**: SQLite
 -   **ORM**: Laravel Eloquent
 -   **Authentication**: Laravel Sanctum
+-   **Docker**: It contains both the database and the API itself (optional)
 
 ## Prerequisites
 
 [PHP](https://www.php.net/manual/en/install.php) 8.1+
 [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-macos) 2.6+
+[Docker](https://docs.docker.com/get-started/get-docker/) (If you intend to use it)
 
-## Installation
+## Installation(Docker)
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/Styri/Videogame-Management-API
+cd Videogame-Management-API
+```
+2. Copy environment file:
+
+```bash
+cp .env.example .env
+```
+
+3. Start Docker containers:
+
+```bash
+docker-compose up -d
+```
+
+4. Enter the container and set up Laravel
+
+Enter:
+```bash
+docker-compose exec app bash
+```
+Install dependencies:
+```bash
+composer install
+```
+Generate app key:
+```bash
+php artisan key:generate
+```
+Create tables and seed them:
+```bash
+php artisan migrate --seed
+```
+Exit: Ctrl + c or:
+```bash
+exit
+```
+
+### The API will be accessible at http://localhost:8000/api
+
+## Installation(Non Docker)
 
 > [!NOTE]
 > If you're installing PHP for the first time, in order to follow the installation steps, you may need to uncomment (remove the * from the front) the following extensions in your `php.ini` file (which you can find in the root of your PHP directory after installing Composer):
@@ -36,7 +83,7 @@ and perform CRUD operations on their game library with role-based access control
 > extension=sqlite3
 >```
 
-1. Clone the repository
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/Styri/Videogame-Management-API
@@ -183,8 +230,6 @@ For testing purposes, initial seeding creates:
   - Password: `password123`
 
 
-## Next steps
+## Next step(s)
 
-- Docker container for easier installation
 - Extend filtering capabilities
-
