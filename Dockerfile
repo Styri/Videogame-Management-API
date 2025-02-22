@@ -19,13 +19,16 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-RUN mkdir -p database && chown -R www-data:www-data database && chmod 777 database
+COPY composer.json composer.lock ./
 
-COPY . /var/www
+RUN composer install --no-scripts --no-dev --no-autoloader
 
 COPY --chown=www-data:www-data . /var/www
 
-RUN composer install --no-scripts --no-dev --no-autoloader
+RUN mkdir -p database && \
+    touch database/database.sqlite && \
+    chown -R www-data:www-data database && \
+    chmod 777 database/database.sqlite
 
 RUN composer dump-autoload --optimize
 
