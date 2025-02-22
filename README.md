@@ -42,33 +42,21 @@ cd Videogame-Management-API
 cp .env.example .env
 ```
 
-### 3. Start Docker containers:
+### 3. Start Docker container:
 
 ```bash
 docker-compose up -d
 ```
 
-### 4. Enter the container and set up Laravel:
+### 4. Enter the container:
 
-Enter:
+#### Generate app key:
 ```bash
-docker-compose exec app bash
+docker-compose exec app php artisan key:generate
 ```
-Install dependencies:
-```bash
-composer install
-```
-Generate app key:
-```bash
-php artisan key:generate
-```
-Create tables and seed them:
+#### Create tables and seed them:
 ```bash
 php artisan migrate --seed
-```
-Exit: Ctrl + c or:
-```bash
-exit
 ```
 
 ### The API will be accessible at http://localhost:8000/api
