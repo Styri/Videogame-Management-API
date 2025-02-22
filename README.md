@@ -29,7 +29,7 @@ and perform CRUD operations on their game library with role-based access control
 ## Installation
 
 > [!NOTE]
-> If you're installing PHP for the first time, in order to follow the installation steps, you may need to uncomment (remove the * from the front) the following extensions in your `php.ini` file (which you can find in the root of your php directory):
+> If you're installing PHP for the first time, in order to follow the installation steps, you may need to uncomment (remove the * from the front) the following extensions in your `php.ini` file (which you can find in the root of your PHP directory after installing Composer):
 >```
 > extension=fileinfo
 > extension=pdo_sqlite
