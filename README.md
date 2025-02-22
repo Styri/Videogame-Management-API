@@ -95,26 +95,41 @@ A Postman collection is provided in the `apidocs` folder for easy API testing an
 
 ### Authentication
 
+``` bash
 POST /api/register: User registration
+``` bash
 POST /api/login: User login
+``` bash
 POST /api/logout: User logout
+```
 
 ### Games
 
+``` bash
 GET /api/games: List all games
+``` bash
 POST /api/games: Create a new game
+``` bash
 GET /api/games/{game_id}: Retrieve specific game
+``` bash
 PUT /api/games/{game_id}: Update a game
+``` bash
 DELETE /api/games/{game_id}: Delete a game
+``` 
 
 ### Personal Games(for dashboard use)
 
+``` bash
 GET /api/my-games: List user's personal game collection
+```
 
 ### Game Reviews
 
+``` bash
 GET /api/games/{game_id}/reviews: List game reviews
+``` bash
 POST /api/games/{game_id}/reviews: Add a review to a game
+```
 
 ## Authorization
 
@@ -125,8 +140,8 @@ Two roles are available: Regular User and Admin
 ### User Roles
 
 For testing purposes, initial seeding creates:
--1 Admin user: `admin@gamehub.com`
--50 randomly generated Regular Users
+- 1 Admin user: `admin@gamehub.com`
+- 50 randomly generated Regular Users
 
 ### Login Credentials of admin user(created by seeding for testing)
 
