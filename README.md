@@ -26,7 +26,7 @@ and perform CRUD operations on their game library with role-based access control
 ## Installation
 1. Clone the repository
 ```bash
-git clone
+git clone https://github.com/Styri/Videogame-Management-API
 cd
 ```
 
