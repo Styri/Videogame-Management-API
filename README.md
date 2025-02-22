@@ -119,8 +119,8 @@ POST /api/games/{game_id}/reviews: Add a review to a game
 ## Authorization
 
 Two roles are available: Regular User and Admin
-Regular users can fully manage their own games.
-Admin users can fully manage games of any user.
+- Regular users can fully manage their own games.
+- Admin users can fully manage games of any user.
 
 ### User Roles
 
