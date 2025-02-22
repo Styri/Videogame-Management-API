@@ -95,40 +95,59 @@ A Postman collection is provided in the `apidocs` folder for easy API testing an
 
 ### Authentication
 
+User registration
 ``` bash
-POST /api/register: User registration
+POST /api/register
+``` 
+User login
 ``` bash
-POST /api/login: User login
-``` bash
-POST /api/logout: User logout
+POST /api/login
 ```
+User logout
+``` bash
+POST /api/logout
+```
+
 
 ### Games
 
+List all games
 ``` bash
-GET /api/games: List all games
+GET /api/games 
+``` 
+Create a new game
 ``` bash
-POST /api/games: Create a new game
+POST /api/games
+``` 
+Retrieve specific game
 ``` bash
-GET /api/games/{game_id}: Retrieve specific game
+GET /api/games/{game_id}
+``` 
+Update a game
 ``` bash
-PUT /api/games/{game_id}: Update a game
+PUT /api/games/{game_id}
+``` 
+Delete a game
 ``` bash
-DELETE /api/games/{game_id}: Delete a game
+DELETE /api/games/{game_id}
 ``` 
 
 ### Personal Games(for dashboard use)
 
+List user's personal game collection
 ``` bash
-GET /api/my-games: List user's personal game collection
+GET /api/my-games
 ```
 
 ### Game Reviews
 
+ List game reviews
 ``` bash
-GET /api/games/{game_id}/reviews: List game reviews
+GET /api/games/{game_id}/reviews
+``` 
+Add a review to a game
 ``` bash
-POST /api/games/{game_id}/reviews: Add a review to a game
+POST /api/games/{game_id}/reviews: 
 ```
 
 ## Authorization
