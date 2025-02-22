@@ -31,8 +31,8 @@ and perform CRUD operations on their game library with role-based access control
 1. Clone the repository
 
 ```bash
-git clone
-cd
+git clone https://github.com/Styri/Videogame-Management-API
+cd Videogame-Management-API
 ```
 
 2.  Create SQLite database(while in root directory):
@@ -129,7 +129,14 @@ For testing purposes, initial seeding creates:
 50 randomly generated Regular Users
 
 ### Login Credentials of admin user(created by seeding for testing)
+<<<<<<< HEAD
 
 -   Admin User:
     -   Email: `admin@gamehub.com`
     -   Password: `password123`
+=======
+- Admin User:
+  - Email: `admin@gamehub.com`
+  - Password: `password123`
+    
+>>>>>>> 49471af3f2ed2f584bcd8f39adafa8936e909877
