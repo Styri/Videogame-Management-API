@@ -28,6 +28,14 @@ and perform CRUD operations on their game library with role-based access control
 
 ## Installation
 
+> [!NOTE]
+> If you're installing PHP for the first time, in order to follow the installation steps, you may need to uncomment (remove the * from the front) the following extensions in your `php.ini` file (which you can find in the root of your php directory):
+>```
+> extension=fileinfo
+> extension=pdo_sqlite
+> extension=sqlite3
+>```
+
 1. Clone the repository
 
 ```bash
@@ -35,25 +43,31 @@ git clone https://github.com/Styri/Videogame-Management-API
 cd Videogame-Management-API
 ```
 
-2.  Create SQLite database(while in root directory):
+2. Create SQLite database(while in root directory):
 
 ```bash
 touch database/database.sqlite
 ```
 
-3. Install dependencies:
+3. Copy environment file:
+
+```bash
+cp .env.example .env
+```
+
+4. Install dependencies:
 
 ```bash
 composer install
 ```
 
-4. Generate app key:
+5. Generate app key:
 
 ```bash
 php artisan key:generate
 ```
 
-5. Create tables and seed them:
+6. Create tables and seed them:
 
 ```bash
 php artisan migrate --seed
@@ -65,7 +79,7 @@ OR create the tables without seeding them:
 php artisan migrate
 ```
 
-6. Start the local server:
+7. Start the local server:
 
 ```bash
 php artisan serve
@@ -141,7 +155,7 @@ GET /api/my-games
 
 ### Game Reviews
 
- List game reviews
+ List reviews for a specific game
 ``` bash
 GET /api/games/{game_id}/reviews
 ``` 
@@ -167,5 +181,10 @@ For testing purposes, initial seeding creates:
 - Admin User:
   - Email: `admin@gamehub.com`
   - Password: `password123`
-    
+
+
+## Next steps
+
+- Docker container for easier installation
+- Extend filtering capabilities
 
