@@ -125,18 +125,13 @@ Admin users can fully manage games of any user.
 ### User Roles
 
 For testing purposes, initial seeding creates:
-1 Admin user: `admin@gamehub.com`
-50 randomly generated Regular Users
+-1 Admin user: `admin@gamehub.com`
+-50 randomly generated Regular Users
 
 ### Login Credentials of admin user(created by seeding for testing)
-<<<<<<< HEAD
 
--   Admin User:
-    -   Email: `admin@gamehub.com`
-    -   Password: `password123`
-=======
 - Admin User:
   - Email: `admin@gamehub.com`
   - Password: `password123`
     
->>>>>>> 49471af3f2ed2f584bcd8f39adafa8936e909877
+
