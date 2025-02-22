@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "f246b2a7-b3fc-4adc-99d1-3696dcd64c25",
+		"name": "Video Game Management API",
+		"description": "API documentation for Video Game Management System\n\nAuthentication:\n\n- Bearer token authentication required for all endpoints except Register and Login\n    \n- Include token in Authorization header: 'Bearer {token}'\n    \n\nCommon Response Formats:\n\n- Success: { data: \\[results\\] }\n    \n- Validation Error: { message: 'The given data was invalid', errors: { field: \\['error message'\\] } }\n    \n- Auth Error: { message: 'Unauthenticated' } (401)\n    \n- Not Found: { message: 'Resource not found' } (404)\n    \n- Server Error: { message: 'Server Error' } (500)\n    \n\nPagination Format:  \n{  \n\"data\": \\[\\],  \n\"current_page\": 1,  \n\"per_page\": 10,  \n\"total\": 100,  \n\"last_page\": 10  \n}",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34138459"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "Register a new user account\n\nRequest Body:\n- name: string, required, max:255\n- email: string, required, unique, valid email\n- password: string, required, min:8\n- password_confirmation: string, required, must match password\n\nSuccess Response (200):\n{\n    \"access_token\": \"string\",\n    \"token_type\": \"Bearer\"\n}\n\nError Response (422):\n{\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"email\": [\n            \"The email has already been taken\"\n        ]\n    }\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.access_token) {",
+									"    pm.environment.set(\"auth_token\", jsonData.access_token);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Authenticate user and get token\n\nRequest Body:\n- email: string, required\n- password: string, required\n\nSuccess Response (200):\n{\n    \"access_token\": \"string\",\n    \"token_type\": \"Bearer\"\n}\n\nError Response (422):\n{\n    \"message\": \"The provided credentials are incorrect\",\n    \"errors\": {\n        \"email\": [\n            \"The provided credentials are incorrect\"\n        ]\n    }\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logout user and invalidate token\n\nSuccess Response (200):\n{\n    \"message\": \"Logged out successfully\"\n}\n\nError Response (401):\n{\n    \"message\": \"Unauthenticated\"\n}"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints for user registration, login, and logout"
+		},
+		{
+			"name": "2. Games",
+			"item": [
+				{
+					"name": "List All Games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/games?genre=Action RPG&sort=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "Action RPG"
+								},
+								{
+									"key": "sort",
+									"value": "asc"
+								}
+							]
+						},
+						"description": "Get paginated list of all games\n\nQuery Parameters:\n- genre: string, optional - Filter by genre\n- sort: string, optional (asc/desc) - Sort by release_date\n\nSuccess Response (200):\n{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Game Title\",\n            \"description\": \"Game description\",\n            \"release_date\": \"2024-01-01\",\n            \"genre\": \"Action\",\n            \"publisher\": \"Publisher Name\",\n            \"developer\": \"Developer Name\",\n            \"is_multi_player\": true,\n            \"is_single_player\": true,\n            \"user_id\": 1,\n            \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n        }\n    ],\n    \"current_page\": 1,\n    \"per_page\": 10,\n    \"total\": 100,\n    \"last_page\": 10\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.id) {",
+									"    pm.environment.set(\"game_id\", jsonData.id);",
+									"}"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New Game Title\",\n    \"description\": \"Exciting new game description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Example Publisher\",\n    \"developer\": \"Example Developer\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/games",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games"
+							]
+						},
+						"description": "Create a new game\n\nRequest Body:\n- title: string, required, max:150, unique\n- description: string, required, max:255\n- release_date: date, required, format:Y-m-d\n- genre: string, required, max:50\n- publisher: string, required, max:75\n- developer: string, required, max:75\n- is_multi_player: boolean\n- is_single_player: boolean\n\nSuccess Response (201):\n{\n    \"id\": 1,\n    \"title\": \"New Game Title\",\n    \"description\": \"Game description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Publisher Name\",\n    \"developer\": \"Developer Name\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/games/{{game_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games",
+								"{{game_id}}"
+							]
+						},
+						"description": "Get details of a specific game\n\nURL Parameters:\n- game_id: integer, required\n\nSuccess Response (200):\n{\n    \"id\": 1,\n    \"title\": \"Game Title\",\n    \"description\": \"Game description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Publisher Name\",\n    \"developer\": \"Developer Name\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Response (404):\n{\n    \"message\": \"No query results for model [App\\\\Models\\\\Game] {id}\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Game Title\",\n    \"description\": \"Updated description\",\n    \"release_date\": \"2024-02-01\",\n    \"genre\": \"RPG\",\n    \"publisher\": \"Updated Publisher\",\n    \"developer\": \"Updated Developer\",\n    \"is_multi_player\": false,\n    \"is_single_player\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/games/{{game_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games",
+								"{{game_id}}"
+							]
+						},
+						"description": "Update an existing game\n\nAuthorization:\n- Must be game owner or admin\n\nURL Parameters:\n- game_id: integer, required\n\nRequest Body:\n- title: string, required, max:150, unique (except current game)\n- description: string, required, max:255\n- release_date: date, required, format:Y-m-d\n- genre: string, required, max:50\n- publisher: string, required, max:75\n- developer: string, required, max:75\n- is_multi_player: boolean\n- is_single_player: boolean\n\nSuccess Response (200):\n{\n    \"id\": 1,\n    \"title\": \"Updated Game Title\",\n    \"description\": \"Updated description\",\n    \"release_date\": \"2024-02-01\",\n    \"genre\": \"RPG\",\n    \"publisher\": \"Updated Publisher\",\n    \"developer\": \"Updated Developer\",\n    \"is_multi_player\": false,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Responses:\n- 403: { \"message\": \"This action is unauthorized\" }\n- 404: { \"message\": \"No query results for model [App\\\\Models\\\\Game] {id}\" }\n- 422: { \"message\": \"The given data was invalid\", \"errors\": {...} }"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/games/{{game_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games",
+								"{{game_id}}"
+							]
+						},
+						"description": "Delete a specific game\n\nAuthorization:\n- Must be game owner or admin\n\nURL Parameters:\n- game_id: integer, required\n\nSuccess Response (204):\n- No content\n\nError Responses:\n- 403: { \"message\": \"This action is unauthorized\" }\n- 404: { \"message\": \"No query results for model [App\\\\Models\\\\Game] {id}\" }"
+					},
+					"response": []
+				}
+			],
+			"description": "Game management endpoints"
+		},
+		{
+			"name": "3. My Games",
+			"item": [
+				{
+					"name": "List My Games",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/my-games?genre=Action&sort=desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"my-games"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "Action",
+									"description": "Filter by genre"
+								},
+								{
+									"key": "sort",
+									"value": "desc",
+									"description": "Sort by release_date (asc/desc)"
+								}
+							]
+						},
+						"description": "Get paginated list of authenticated user's games\n\nQuery Parameters:\n- genre: string, optional - Filter by genre\n- sort: string, optional (asc/desc) - Sort by release_date\n\nSuccess Response (200):\n{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Game Title\",\n            \"description\": \"Game description\",\n            \"release_date\": \"2024-01-01\",\n            \"genre\": \"Action\",\n            \"publisher\": \"Publisher Name\",\n            \"developer\": \"Developer Name\",\n            \"is_multi_player\": true,\n            \"is_single_player\": true,\n            \"user_id\": 1,\n            \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n        }\n    ],\n    \"current_page\": 1,\n    \"per_page\": 10,\n    \"total\": 100,\n    \"last_page\": 10\n}"
+					},
+					"response": []
+				}
+			],
+			"description": "Personal game management endpoint"
+		},
+		{
+			"name": "4. Game Reviews",
+			"item": [
+				{
+					"name": "List Game Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/games/{{game_id}}/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games",
+								"{{game_id}}",
+								"reviews"
+							]
+						},
+						"description": "Get paginated list of reviews for a specific game\n\nURL Parameters:\n\n- game_id: integer, required\n    \n\nSuccess Response (200):  \n{  \n\"data\": \\[  \n{  \n\"id\": 1,  \n\"game_id\": 1,  \n\"user_id\": 1,  \n\"rating\": 8,  \n\"review\": \"Great game!\",  \n\"created_at\": \"2024-01-01T00:00:00.000000Z\",  \n\"updated_at\": \"2024-01-01T00:00:00.000000Z\",  \n\"user\": {  \n\"id\": 1,  \n\"name\": \"User Name\"  \n}  \n}  \n\\],  \n\"current_page\": 1,  \n\"per_page\": 10,  \n\"total\": 50,  \n\"last_page\": 5  \n}\n\nError Response (404):  \n{  \n\"message\": \"No query results for model \\[App\\\\Models\\\\Game\\] {id}\"  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 8,\n    \"review\": \"Great game with amazing graphics and gameplay!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/games/{{game_id}}/reviews",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"games",
+								"{{game_id}}",
+								"reviews"
+							]
+						},
+						"description": "Create a new review for a specific game\n\nURL Parameters:\n\n- game_id: integer, required\n    \n\nRequest Body:\n\n- rating: integer, required, min:1, max:10\n    \n- review: string, required\n    \n\nSuccess Response (201):  \n{  \n\"id\": 1,  \n\"game_id\": 1,  \n\"user_id\": 1,  \n\"rating\": 8,  \n\"review\": \"Great game with amazing graphics and gameplay!\",  \n\"created_at\": \"2024-01-01T00:00:00.000000Z\",  \n\"updated_at\": \"2024-01-01T00:00:00.000000Z\"  \n}\n\nError Responses:\n\n- 404: { \"message\": \"No query results for model \\[App\\\\Models\\\\Game\\] {id}\" }\n    \n- 422: { \"message\": \"The given data was invalid\", \"errors\": {...} }"
+					},
+					"response": []
+				}
+			],
+			"description": "Game review management endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "game_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
