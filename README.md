@@ -30,25 +30,25 @@ role-based access control, and a review system."
 
 ## Installation(Docker)
 
-1. Clone the repository
+### 1. Clone the repository:
 
 ```bash
 git clone https://github.com/Styri/Videogame-Management-API
 cd Videogame-Management-API
 ```
-2. Copy environment file:
+### 2. Copy environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Start Docker containers:
+### 3. Start Docker containers:
 
 ```bash
 docker-compose up -d
 ```
 
-4. Enter the container and set up Laravel
+### 4. Enter the container and set up Laravel:
 
 Enter:
 ```bash
@@ -73,7 +73,7 @@ exit
 
 ### The API will be accessible at http://localhost:8000/api
 
-## Installation(Non Docker)
+## Installation(Non-Docker)
 
 > [!NOTE]
 > If you're installing PHP for the first time, in order to follow the installation steps, you may need to uncomment (remove the * from the front) the following extensions in your `php.ini` file (which you can find in the root of your PHP directory after installing Composer):
@@ -83,38 +83,38 @@ exit
 > extension=sqlite3
 >```
 
-1. Clone the repository:
+### 1. Clone the repository:
 
 ```bash
 git clone https://github.com/Styri/Videogame-Management-API
 cd Videogame-Management-API
 ```
 
-2. Create SQLite database(while in root directory):
+### 2. Create SQLite database(while in root directory):
 
 ```bash
 touch database/database.sqlite
 ```
 
-3. Copy environment file:
+### 3. Copy environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Install dependencies:
+### 4. Install dependencies:
 
 ```bash
 composer install
 ```
 
-5. Generate app key:
+### 5. Generate app key:
 
 ```bash
 php artisan key:generate
 ```
 
-6. Create tables and seed them:
+### 6. Create tables and seed them:
 
 ```bash
 php artisan migrate --seed
@@ -126,7 +126,7 @@ OR create the tables without seeding them:
 php artisan migrate
 ```
 
-7. Start the local server:
+### 7. Start the local server:
 
 ```bash
 php artisan serve
@@ -145,7 +145,7 @@ A Postman collection is provided in the `apidocs` folder for easy API testing an
 3. Drag and drop the collection file
 4. Click "Import"
 
-### Accessing Endpoints
+#### Accessing Endpoints
 
 -   After importing, you'll see the full list of API endpoints
 -   Most endpoints require authentication (except register and login)
