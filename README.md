@@ -27,7 +27,7 @@ and perform CRUD operations on their game library with role-based access control
 1. Clone the repository
 ```bash
 git clone https://github.com/Styri/Videogame-Management-API
-cd
+cd Videogame-Management-API
 ```
 
 2.  Create SQLite database(while in root directory):
