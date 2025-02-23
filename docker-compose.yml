@@ -10,6 +10,7 @@ services:
     volumes:
       - .:/var/www
       - /var/www/vendor
+      - /var/www/tests/Unit
     networks:
       - game-api
     environment:
