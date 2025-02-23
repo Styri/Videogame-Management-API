@@ -42,13 +42,18 @@ cd Videogame-Management-API
 cp .env.example .env
 ```
 
-### 3. Start Docker container:
+### 3. Build Docker container:
+```bash
+docker-compose build
+```
+
+### 4. Start Docker container:
 
 ```bash
 docker-compose up -d
 ```
 
-### 4. Enter the container:
+### 5. Enter the container:
 
 #### Generate app key:
 ```bash
