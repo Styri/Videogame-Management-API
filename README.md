@@ -114,6 +114,11 @@ cp .env.local .env
 ```bash
 composer install
 ```
+> [!NOTE]
+> If you encounter an error here try this instead:
+ ```bash
+ composer update
+```
 
 ### 5. Generate app key:
 
