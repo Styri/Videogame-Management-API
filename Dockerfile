@@ -23,13 +23,15 @@ RUN mkdir -p /var/www && \
     chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www
 
-COPY --chown=www-data:www-data . .
+COPY composer.* ./
 
 USER www-data
 
 RUN composer install \
     --no-plugins \
-    --no-scripts 
+    --no-scripts
+
+COPY --chown=www-data:www-data . .
 
 RUN composer dump-autoload --optimize && \
     composer run-script post-autoload-dump
