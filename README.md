@@ -1,5 +1,17 @@
 # Video Game Management API
 
+## Quick Links
+- [Key Features](#key-features)
+- [Setup & Installation](#Installationdocker)
+    - [Prerequisites](#prerequisites)
+    - [Docker Setup](#installationdocker)
+    - [Standard Setup](#installationnon-docker)
+- [API Documentation](#api-documentation)
+    - [API Endpoints](#API-Endpoints)
+    - [Filtering and Sorting Options](#Filtering-and-Sorting-Options)
+- [Authorization & Roles](#authorization)
+- [Testing](#testing)
+
 ## Overview
 
 "A Laravel-based API for managing video game collections with user authentication,
