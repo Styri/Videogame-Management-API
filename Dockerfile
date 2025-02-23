@@ -19,7 +19,7 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-RUN mkdir -p /var/www/tests/Unit /var/www/tests/Feature && \
+RUN mkdir -p /var/www/tests/Unit /var/www/tests/Feature /var/www/database && \
     chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www
 
@@ -28,7 +28,7 @@ USER www-data
 COPY --chown=www-data:www-data composer.* ./
 
 RUN composer install \
-    --no-scripts
+    --no-scripts 
 
 COPY --chown=www-data:www-data . .
 
