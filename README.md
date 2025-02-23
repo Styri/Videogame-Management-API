@@ -42,14 +42,15 @@ cd Videogame-Management-API
 cp .env.example .env
 ```
 
-### 3. Build Docker container:
+### 3. Create DB file:
 ```bash
-docker-compose build
+touch database/database.sqlite
+chmod 666 database/database.sqlite
 ```
 
-### 4. Start Docker container:
-
+### 4. Build and start Docker container:
 ```bash
+docker-compose build
 docker-compose up -d
 ```
 
