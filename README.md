@@ -50,19 +50,19 @@ chmod 666 database/database.sqlite
 
 ### 4. Build and start Docker container:
 ```bash
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 ```
 
 ### 5. Enter the container:
 
 #### Generate app key:
 ```bash
-docker-compose exec app php artisan key:generate
+docker compose exec app php artisan key:generate
 ```
 #### Create tables and seed them:
 ```bash
-php artisan migrate --seed
+docker compose exec app php artisan migrate --seed
 ```
 
 ### The API will be accessible at http://localhost:8000/api
