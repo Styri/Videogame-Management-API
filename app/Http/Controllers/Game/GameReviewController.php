@@ -10,9 +10,18 @@ class GameReviewController extends Controller
 {
     public function index(IndexGameReviewRequest $request, Game $game)
     {
-        $reviews = $game->reviews()->with('user')->paginate(10);
+        $query = $game->reviews()->with('user');
+        $validated = $request->validated();
 
-        return response()->json($reviews);
+        if (isset($validated['user_id'])) {
+            $query->where('user_id', $validated['user_id']);
+        }
+
+        if (isset($validated['sort_by']) && isset($validated['sort'])) {
+            $query->orderBy($validated['sort_by'], $validated['sort']);
+        }
+
+        return response()->json($query->paginate(10));
     }
 
     public function store(StoreGameReviewRequest $request, Game $game)

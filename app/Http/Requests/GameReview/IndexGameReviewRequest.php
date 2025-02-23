@@ -13,6 +13,10 @@ class IndexGameReviewRequest extends FormRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+            'user_id' => 'nullable|exists:users,id',
+            'sort' => 'nullable|string|in:asc,desc',
+            'sort_by' => 'nullable|string|in:rating,created_at'
+        ];
     }
 }

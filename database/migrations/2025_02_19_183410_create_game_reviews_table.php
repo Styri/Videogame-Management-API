@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('game_reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating');
+            $table->tinyInteger('rating');
             $table->text('review');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('game_id')->constrained()->onDelete('cascade');
