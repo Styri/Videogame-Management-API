@@ -213,8 +213,8 @@ You can filter and sort games using the following query parameters:
 - `genre`: Filter by specific genre
 - `developer`: Filter by developer name (partial match)
 - `publisher`: Filter by publisher name (partial match)
-- `is_single_player`: Filter by multiplayer capability (true/false)
-- `is_multi_player`: Filter by single player capability (true/false)
+- `is_single_player`: Filter by multiplayer capability (use 1/0 or true/false)
+- `is_multi_player`: Filter by single player capability (use 1/0 or true/false)
 - `sort_by`: Sort by field (options: title, release_date, created_at)
 - `sort`: Sort direction (asc/desc)
 
@@ -223,7 +223,7 @@ Examples:
 GET /api/games?genre=Action RPG&sort_by=release_date&sort=desc
 ```
 ```bash
-GET /api/my-games?developer=Capcom&is_multi_player=true
+GET /api/my-games?developer=Capcom&is_multi_player=1
 ```
 ## Authorization
 
