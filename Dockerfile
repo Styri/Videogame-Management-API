@@ -19,21 +19,22 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-RUN mkdir -p /var/www && \
+RUN mkdir -p /var/www/tests/Unit /var/www/tests/Feature && \
     chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www
 
-COPY composer.* ./
-
 USER www-data
 
+COPY --chown=www-data:www-data composer.* ./
+
 RUN composer install \
-    --no-plugins \
     --no-scripts
 
 COPY --chown=www-data:www-data . .
 
-RUN composer dump-autoload --optimize && \
+RUN mkdir -p tests/Unit tests/Feature && \
+    chmod -R 755 tests && \
+    composer dump-autoload --optimize && \
     composer run-script post-autoload-dump
 
 EXPOSE 9000
