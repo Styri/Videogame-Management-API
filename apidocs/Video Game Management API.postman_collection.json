@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "4aa86df8-0c6f-494c-9870-e3a10ce30e9f",
+		"name": "Video Game Management API",
+		"description": "API documentation for Video Game Management\n\nAuthentication:\n\n- Bearer token authentication required for all endpoints except Register and Login\n    \n- Include token in Authorization header: 'Bearer {token}'\n    \n\nCommon Response Formats:\n\n- Success (200/201):  \n    {  \n    \"data\": \\[results\\]  \n    }\n    \n- Created (201):  \n    {  \n    \"data\": { created_resource }  \n    }\n    \n- Validation Error (422):  \n    {  \n    \"message\": \"The given data was invalid\",  \n    \"errors\": {\n    \n    ```\n        \"field\": [\"error message\"]\n    \n     ```\n    \n    }  \n    }\n    \n- Auth Error (401):  \n    {  \n    \"message\": \"Unauthenticated\"  \n    }\n    \n- Forbidden (403):  \n    {  \n    \"message\": \"This action is unauthorized\"  \n    }\n    \n- Not Found (404):  \n    {  \n    \"message\": \"Resource not found\"  \n    }\n    \n- Server Error (500):  \n    {  \n    \"message\": \"Server Error\"  \n    }\n    \n\nPagination Format:  \n{  \n\"data\": \\[\\],  \n\"current_page\": 1,  \n\"per_page\": 10,  \n\"total\": 100,  \n\"last_page\": 10,  \n\"first_page_url\": \"url\",  \n\"last_page_url\": \"url\",  \n\"next_page_url\": \"url\",  \n\"prev_page_url\": \"url\"  \n}\n\nFiltering & Sorting:\n\n- Most list endpoints support filtering and sorting\n    \n- Multiple filters can be combined\n    \n- Sort parameters: sort_by (field name) and sort (asc/desc)\n    \n\nRole-Based Access:\n\n- Regular User: Can manage their own games and reviews\n    \n- Admin: Can manage all games of any user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34138459"
+	},
+	"item": [
+		{
+			"name": "1. Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test User\",\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password123\",\r\n    \"password_confirmation\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						},
+						"description": "Register a new user account\n\nRequest Body:\n- name: string, required, max:255\n- email: string, required, unique, max:254, valid email format\n- password: string, required, min:8, max:40\n- password_confirmation: string, required, must match password\n\nSuccess Response (201):\n{\n    \"access_token\": \"string\",\n    \"token_type\": \"Bearer\"\n}\n\nError Response (422):\n{\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"email\": [\"The email has already been taken\"],\n        \"password\": [\"The password must be at least 8 characters.\"]\n    }\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "Authenticate user and get token\n\nRequest Body:\n\n- email: string, required, valid email format\n    \n- password: string, required\n    \n\nSuccess Response (200):  \n{  \n\"access_token\": \"string\",  \n\"token_type\": \"Bearer\"  \n}\n\nError Response (422):  \n{  \n\"message\": \"The provided credentials are incorrect\",  \n\"errors\": {  \n\"email\": \\[\"The provided credentials are incorrect\"\\]  \n}  \n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|yekUix6o3n52eRy4qRvVgx41e0ASFqYauSCWDlrqd33149a4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "Logout user and invalidate current token\n\nAuthorization: Bearer token required\n\nSuccess Response (200):\n{\n    \"message\": \"Logged out successfully\"\n}\n\nError Response (401):\n{\n    \"message\": \"Unauthenticated\"\n}"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints for user registration, login, and logout"
+		},
+		{
+			"name": "2. Games",
+			"item": [
+				{
+					"name": "List All Games",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games"
+							]
+						},
+						"description": "Get paginated list of all games\n\nAuthorization: Bearer token required\n\nQuery Parameters:\n- title: string, optional - Filter by game title (partial match, max:150)\n- genre: string, optional - Filter by genre (max:50)\n- developer: string, optional - Filter by developer name (partial match, max:75)\n- publisher: string, optional - Filter by publisher name (partial match, max:75)\n- is_multi_player: boolean, optional - Filter multiplayer games (1/0)\n- is_single_player: boolean, optional - Filter single player games (1/0)\n- sort_by: string, optional - Sort field (options: title, release_date, created_at)\n- sort: string, optional - Sort direction (asc/desc)\n\nSuccess Response (200):\n{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Game Title\",\n            \"description\": \"Game description\",\n            \"release_date\": \"2024-01-01\",\n            \"genre\": \"Action\",\n            \"publisher\": \"Publisher Name\",\n            \"developer\": \"Developer Name\",\n            \"is_multi_player\": true,\n            \"is_single_player\": true,\n            \"user_id\": 1,\n            \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n        }\n    ],\n    \"current_page\": 1,\n    \"per_page\": 10,\n    \"total\": 100,\n    \"last_page\": 10,\n    \"first_page_url\": \"url\",\n    \"last_page_url\": \"url\",\n    \"next_page_url\": \"url\",\n    \"prev_page_url\": \"url\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Game",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"New Game Title\",\r\n    \"description\": \"Exciting new game description\",\r\n    \"release_date\": \"2024-01-01\",\r\n    \"genre\": \"Action\",\r\n    \"publisher\": \"Example Publisher\",\r\n    \"developer\": \"Example Developer\",\r\n    \"is_multi_player\": true,\r\n    \"is_single_player\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games"
+							]
+						},
+						"description": "Create a new game\n\nAuthorization: Bearer token required\n\nRequest Body:\n- title: string, required, max:150, unique\n- description: string, required, max:1500\n- release_date: date, required, format:Y-m-d\n- genre: string, required, max:50\n- publisher: string, required, max:75\n- developer: string, required, max:75\n- is_multi_player: boolean, optional, defaults to false\n- is_single_player: boolean, optional, defaults to true\n\nSuccess Response (201):\n{\n    \"id\": 1,\n    \"title\": \"New Game Title\",\n    \"description\": \"Game description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Publisher Name\",\n    \"developer\": \"Developer Name\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Response (422):\n{\n    \"message\": \"The given data was invalid\",\n    \"errors\": {\n        \"title\": [\"The title has already been taken\"],\n        \"release_date\": [\"The release date field is required\"]\n    }\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Game",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games/29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"29"
+							]
+						},
+						"description": "Get details of a specific game\n\nAuthorization: Bearer token required\n\nURL Parameters:\n- game_id: integer, required\n\nSuccess Response (200):\n{\n    \"id\": 1,\n    \"title\": \"Game Title\",\n    \"description\": \"Game description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Publisher Name\",\n    \"developer\": \"Developer Name\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Response (404):\n{\n    \"message\": \"Resource not found\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Game",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Update Title\",\r\n    \"description\": \"Updated game description\",\r\n    \"release_date\": \"2024-01-01\",\r\n    \"genre\": \"Action\",\r\n    \"publisher\": \"Example Publisher\",\r\n    \"developer\": \"Example Developer\",\r\n    \"is_multi_player\": true,\r\n    \"is_single_player\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games/29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"29"
+							]
+						},
+						"description": "Update an existing game\n\nAuthorization: Bearer token required\nPermissions: Must be game owner or admin\n\nURL Parameters:\n- game_id: integer, required\n\nRequest Body:\n- title: string, required, max:150, unique (except current game)\n- description: string, required, max:1500\n- release_date: date, required, format:Y-m-d\n- genre: string, required, max:50\n- publisher: string, required, max:75\n- developer: string, required, max:75\n- is_multi_player: boolean, optional\n- is_single_player: boolean, optional\n\nSuccess Response (200):\n{\n    \"id\": 1,\n    \"title\": \"Updated Game Title\",\n    \"description\": \"Updated description\",\n    \"release_date\": \"2024-01-01\",\n    \"genre\": \"Action\",\n    \"publisher\": \"Publisher Name\",\n    \"developer\": \"Developer Name\",\n    \"is_multi_player\": true,\n    \"is_single_player\": true,\n    \"user_id\": 1,\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Responses:\n- 403: {\"message\": \"This action is unauthorized\"}\n- 404: {\"message\": \"Resource not found\"}\n- 422: {\"message\": \"The given data was invalid\", \"errors\": {...}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Game",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/games/29",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"29"
+							]
+						},
+						"description": "Delete a specific game\n\nAuthorization: Bearer token required\nPermissions: Must be game owner or admin\n\nURL Parameters:\n- game_id: integer, required\n\nSuccess Response (204): No content\n\nError Responses:\n- 403: {\"message\": \"This action is unauthorized\"}\n- 404: {\"message\": \"Resource not found\"}"
+					},
+					"response": []
+				}
+			],
+			"description": "Game management endpoints for creating, reading, updating, and deleting games"
+		},
+		{
+			"name": "3. Game Reviews",
+			"item": [
+				{
+					"name": "List Game Reviews",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/games/1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"1",
+								"reviews"
+							]
+						},
+						"description": "Get paginated list of reviews for a specific game\n\nAuthorization: Bearer token required\n\nURL Parameters:\n- game_id: integer, required\n\nQuery Parameters:\n- user_id: integer, optional - Filter reviews by specific user\n- sort_by: string, optional - Sort field (options: rating, created_at)\n- sort: string, optional - Sort direction (asc/desc)\n\nSuccess Response (200):\n{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"game_id\": 1,\n            \"user_id\": 1,\n            \"rating\": 8,\n            \"review\": \"Great game!\",\n            \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"updated_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"user\": {\n                \"id\": 1,\n                \"name\": \"User Name\"\n            }\n        }\n    ],\n    \"current_page\": 1,\n    \"per_page\": 10,\n    \"total\": 50,\n    \"last_page\": 5,\n    \"first_page_url\": \"url\",\n    \"last_page_url\": \"url\",\n    \"next_page_url\": \"url\",\n    \"prev_page_url\": \"url\"\n}\n\nError Response (404):\n{\n    \"message\": \"Resource not found\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 8,\r\n    \"review\": \"Great game with amazing graphics and gameplay!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/games/1/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"games",
+								"1",
+								"reviews"
+							]
+						},
+						"description": "Create a new review for a specific game\n\nAuthorization: Bearer token required\n\nURL Parameters:\n- game_id: integer, required\n\nRequest Body:\n- rating: integer, required, min:1, max:10\n- review: string, required, max:1500\n\nSuccess Response (201):\n{\n    \"id\": 1,\n    \"game_id\": 1,\n    \"user_id\": 1,\n    \"rating\": 8,\n    \"review\": \"Great game with amazing graphics!\",\n    \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n    \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n}\n\nError Responses:\n- 404: {\"message\": \"Resource not found\"}\n- 422: {\"message\": \"The given data was invalid\", \"errors\": {...}}"
+					},
+					"response": []
+				}
+			],
+			"description": "Game review management endpoints for listing and creating reviews"
+		},
+		{
+			"name": "4. My Games",
+			"item": [
+				{
+					"name": "List My Games",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/my-games/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"my-games",
+								""
+							]
+						},
+						"description": "Get paginated list of authenticated user's games\n\nAuthorization: Bearer token required\n\nQuery Parameters:\n- title: string, optional - Filter by game title (partial match, max:150)\n- genre: string, optional - Filter by genre (max:50)\n- developer: string, optional - Filter by developer name (partial match, max:75)\n- publisher: string, optional - Filter by publisher name (partial match, max:75)\n- is_multi_player: boolean, optional - Filter multiplayer games (1/0)\n- is_single_player: boolean, optional - Filter single player games (1/0)\n- sort_by: string, optional - Sort field (options: title, release_date, created_at)\n- sort: string, optional - Sort direction (asc/desc)\n\nSuccess Response (200):\n{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"Game Title\",\n            \"description\": \"Game description\",\n            \"release_date\": \"2024-01-01\",\n            \"genre\": \"Action\",\n            \"publisher\": \"Publisher Name\",\n            \"developer\": \"Developer Name\",\n            \"is_multi_player\": true,\n            \"is_single_player\": true,\n            \"user_id\": 1,\n            \"created_at\": \"2024-01-01T00:00:00.000000Z\",\n            \"updated_at\": \"2024-01-01T00:00:00.000000Z\"\n        }\n    ],\n    \"current_page\": 1,\n    \"per_page\": 10,\n    \"total\": 100,\n    \"last_page\": 10,\n    \"first_page_url\": \"url\",\n    \"last_page_url\": \"url\",\n    \"next_page_url\": \"url\",\n    \"prev_page_url\": \"url\"\n}\n\nError Response (401):\n{\n    \"message\": \"Unauthenticated\"\n}"
+					},
+					"response": []
+				}
+			],
+			"description": "Personal game collection management endpoint"
+		}
+	]
+}
