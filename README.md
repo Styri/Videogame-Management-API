@@ -21,6 +21,7 @@ role-based access control, and a review system."
 -   **ORM**: Laravel Eloquent
 -   **Authentication**: Laravel Sanctum
 -   **Docker**: It contains both the database and the API itself (optional)
+-   **Testing**: PHP Pest
 
 ## Prerequisites
 
@@ -243,7 +244,27 @@ For testing purposes, initial seeding creates:
   - Email: `admin@gamehub.com`
   - Password: `password123`
 
+## Testing
 
-## Next step(s)
+The API is thoroughly tested using Pest PHP, a testing framework.
 
-- Make feature tests to efficiently test the API's routes
+### Test Coverage
+
+The test suite covers:
+- Authentication (login, register, logout)
+- Game management (CRUD operations)
+- Game reviews
+- User-specific game collections
+- Authorization & role-based access
+- Pagination & data filtering
+
+### Running Tests
+
+ Run all tests(docker)
+```bash
+docker compose exec app php artisan test
+```
+Run all tests(non-docker)
+```bash
+php artisan test
+```
