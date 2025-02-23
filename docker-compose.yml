@@ -8,7 +8,8 @@ services:
     restart: unless-stopped
     working_dir: /var/www
     volumes:
-      - ./:/var/www
+      - .:/var/www
+      - /var/www/vendor
     networks:
       - game-api
     environment:
