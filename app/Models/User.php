@@ -19,26 +19,32 @@ class User extends Authenticatable
         'password',
         'role_id'
     ];
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
+
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
     }
+
     public function isAdmin(): bool
     {
         return $this->role->name === 'Admin';
     }
+
 }
