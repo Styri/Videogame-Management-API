@@ -10,14 +10,14 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 150)->unique();
             $table->text('description');
             $table->date('release_date');
-            $table->string('genre');
+            $table->string('genre', 50);
             $table->boolean('is_single_player')->default(true);
             $table->boolean('is_multi_player')->default(false);
-            $table->string('publisher');
-            $table->string('developer');
+            $table->string('publisher', 75);
+            $table->string('developer', 75);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

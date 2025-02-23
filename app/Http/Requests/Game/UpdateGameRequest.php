@@ -18,7 +18,7 @@ class UpdateGameRequest extends FormRequest
     {
         return [
                 'title' => 'required|string|max:150|unique:games,title,'.$this->game->id,
-                'description' => 'required|string|max:255',
+                'description' => 'required|string|max:1500',
                 'release_date' => 'required|date',
                 'genre' => 'required|string|max:50',
                 'publisher' => 'required|string|max:75',
