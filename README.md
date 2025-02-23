@@ -52,7 +52,7 @@ cd Videogame-Management-API
 ### 2. Copy environment file:
 
 ```bash
-cp .env.example .env
+cp .env.docker .env
 ```
 
 ### 3. Create DB file:
@@ -106,7 +106,7 @@ touch database/database.sqlite
 ### 3. Copy environment file:
 
 ```bash
-cp .env.example .env
+cp .env.local .env
 ```
 
 ### 4. Install dependencies:
