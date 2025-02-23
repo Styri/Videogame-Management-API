@@ -96,16 +96,6 @@ class GameSeeder extends Seeder
                 'is_multi_player' => false
             ],
             [
-                'title' => 'Resident Evil 4 Remake',
-                'description' => 'A complete remake of the classic survival horror game, following Leon Kennedy\'s mission to rescue the president\'s daughter.',
-                'release_date' => '2023-03-24',
-                'genre' => 'Survival Horror',
-                'publisher' => 'Capcom',
-                'developer' => 'Capcom',
-                'is_single_player' => true,
-                'is_multi_player' => false
-            ],
-            [
                 'title' => 'The Legend of Zelda: Tears of the Kingdom',
                 'description' => 'The sequel to Breath of the Wild takes Link\'s adventure to the skies above Hyrule with new abilities and mysteries.',
                 'release_date' => '2023-05-12',
@@ -136,36 +126,6 @@ class GameSeeder extends Seeder
                 'is_multi_player' => true
             ],
             [
-                'title' => 'Call of Duty: Modern Warfare III',
-                'description' => 'The latest installment in the Modern Warfare series, featuring both campaign and multiplayer modes.',
-                'release_date' => '2023-11-10',
-                'genre' => 'First-Person Shooter',
-                'publisher' => 'Activision',
-                'developer' => 'Sledgehammer Games',
-                'is_single_player' => true,
-                'is_multi_player' => true
-            ],
-            [
-                'title' => 'Mortal Kombat 1',
-                'description' => 'A reboot of the iconic fighting game series, featuring a new universe created by Fire God Liu Kang.',
-                'release_date' => '2023-09-19',
-                'genre' => 'Fighting',
-                'publisher' => 'Warner Bros. Games',
-                'developer' => 'NetherRealm Studios',
-                'is_single_player' => true,
-                'is_multi_player' => true
-            ],
-            [
-                'title' => 'Alan Wake 2',
-                'description' => 'The long-awaited sequel to the psychological thriller, following both Alan Wake and FBI agent Saga Anderson.',
-                'release_date' => '2023-10-27',
-                'genre' => 'Survival Horror',
-                'publisher' => 'Epic Games Publishing',
-                'developer' => 'Remedy Entertainment',
-                'is_single_player' => true,
-                'is_multi_player' => false
-            ],
-            [
                 'title' => 'Resident Evil 4 Remake',
                 'description' => 'A complete remake of the classic survival horror game, following Leon Kennedy\'s mission to rescue the president\'s daughter.',
                 'release_date' => '2023-03-24',
@@ -174,36 +134,6 @@ class GameSeeder extends Seeder
                 'developer' => 'Capcom',
                 'is_single_player' => true,
                 'is_multi_player' => false
-            ],
-            [
-                'title' => 'The Legend of Zelda: Tears of the Kingdom',
-                'description' => 'The sequel to Breath of the Wild takes Link\'s adventure to the skies above Hyrule with new abilities and mysteries.',
-                'release_date' => '2023-05-12',
-                'genre' => 'Action-Adventure',
-                'publisher' => 'Nintendo',
-                'developer' => 'Nintendo EPD',
-                'is_single_player' => true,
-                'is_multi_player' => false
-            ],
-            [
-                'title' => 'Hogwarts Legacy',
-                'description' => 'An open-world action RPG set in the 1800s wizarding world, where players attend Hogwarts and shape their own magical legacy.',
-                'release_date' => '2023-02-10',
-                'genre' => 'Action RPG',
-                'publisher' => 'Warner Bros. Games',
-                'developer' => 'Avalanche Software',
-                'is_single_player' => true,
-                'is_multi_player' => false
-            ],
-            [
-                'title' => 'Street Fighter 6',
-                'description' => 'The latest entry in the legendary fighting game series, featuring new mechanics and modes.',
-                'release_date' => '2023-06-02',
-                'genre' => 'Fighting',
-                'publisher' => 'Capcom',
-                'developer' => 'Capcom',
-                'is_single_player' => true,
-                'is_multi_player' => true
             ],
             [
                 'title' => 'Call of Duty: Modern Warfare III',
