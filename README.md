@@ -9,8 +9,8 @@ role-based access control, and a review system."
 
 -   User authentication with roles(Admin and regular user)
 -   Game management (CRUD operations)
--   Game filtering and sorting
 -   Game reviews system
+-   Filtering and sorting of games/reviews
 
 ## Technologies & Versions
 
@@ -126,7 +126,7 @@ php artisan migrate
 php artisan serve
 ```
 
-## API Documentation
+# API Documentation
 
 ### Postman Collection
 
@@ -205,6 +205,26 @@ Add a review to a game
 POST /api/games/{game_id}/reviews: 
 ```
 
+### Filtering and Sorting Options
+
+#### Games List Filtering (/api/games and /api/my-games)
+You can filter and sort games using the following query parameters:
+- `title`: Filter by game title (partial match)
+- `genre`: Filter by specific genre
+- `developer`: Filter by developer name (partial match)
+- `publisher`: Filter by publisher name (partial match)
+- `is_single_player`: Filter by multiplayer capability (true/false)
+- `is_multi_player`: Filter by single player capability (true/false)
+- `sort_by`: Sort by field (options: title, release_date, created_at)
+- `sort`: Sort direction (asc/desc)
+
+Examples:
+```bash
+GET /api/games?genre=Action RPG&sort_by=release_date&sort=desc
+```
+```bash
+GET /api/my-games?developer=Capcom&is_multi_player=true
+```
 ## Authorization
 
 Two roles are available: Regular User and Admin
@@ -226,4 +246,4 @@ For testing purposes, initial seeding creates:
 
 ## Next step(s)
 
-- Extend filtering capabilities
+- Make feature tests to efficiently test the API's routes
