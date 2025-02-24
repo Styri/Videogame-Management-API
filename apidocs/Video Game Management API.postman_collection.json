@@ -159,16 +159,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -215,16 +205,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -272,16 +252,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -324,16 +294,6 @@
 				{
 					"name": "Update Game",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [
 							{
@@ -381,16 +341,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -435,16 +385,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
@@ -479,16 +419,6 @@
 				{
 					"name": "Create Review",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
@@ -544,16 +474,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "2|7WfWbv1qCEGuoDfYOKupOLOpyPZzCMHXAxy4vWmz16426f53",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [
 							{
