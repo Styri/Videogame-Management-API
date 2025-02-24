@@ -28,6 +28,9 @@ services:
     depends_on:
       - app
 
+volumes:
+  app-volume:      
+
 networks:
   game-api:
     driver: bridge
