@@ -148,7 +148,7 @@ php artisan serve
 
 ### Postman Collection
 
-A Postman collection is provided in the `apidocs` folder for easy API testing and exploration.
+A Postman collection is provided in the `apidocs` folder for easy API testing and details for each endpoint.
 
 #### Importing the Postman Collection
 
@@ -231,8 +231,8 @@ You can filter and sort games using the following query parameters:
 - `genre`: Filter by specific genre
 - `developer`: Filter by developer name (partial match)
 - `publisher`: Filter by publisher name (partial match)
-- `is_single_player`: Filter by multiplayer capability (use 1/0 for true/false)
-- `is_multi_player`: Filter by single player capability (use 1/0 for true/false)
+- `is_single_player`: Filter by single player capability (use 1/0 for true/false)
+- `is_multi_player`: Filter by multiplayer capability (use 1/0 for true/false)
 - `sort_by`: Sort by field (options: title, release_date, created_at)
 - `sort`: Sort direction (asc/desc)
 
