@@ -22,6 +22,7 @@ services:
       - "8000:80"
     volumes:
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - app-volume:/var/www
     networks:
       - game-api
     depends_on:
