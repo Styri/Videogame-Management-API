@@ -148,7 +148,7 @@ php artisan serve
 
 ### Postman Collection
 
-A Postman collection is provided in the `apidocs` folder for easy API testing and exploration.
+A Postman collection is provided in the `apidocs` folder for easy API testing and details for each endpoint.
 
 #### Importing the Postman Collection
 
