@@ -105,16 +105,6 @@
 						}
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "1|yekUix6o3n52eRy4qRvVgx41e0ASFqYauSCWDlrqd33149a4",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [
 							{
