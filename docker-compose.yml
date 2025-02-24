@@ -11,6 +11,8 @@ services:
       - APP_ENV=local
       - DB_CONNECTION=sqlite
       - DB_DATABASE=/var/www/database/database.sqlite
+    volumes:
+      - app-volume:/var/www
 
   nginx:
     image: nginx:alpine
